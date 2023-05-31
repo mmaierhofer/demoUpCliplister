@@ -1,7 +1,7 @@
-com/demoup/sort/DescendingMergeSort.class
-com/demoup/benchmark/BenchMarkRunner.class
-com/demoup/sort/LegacySort.class
-com/demoup/benchmark/MicroBenchMark.class
-com/demoup/sort/SortAlgorithm.class
-com/demoup/Main.class
-com/demoup/sort/DescendingDefaultSort.class
+com\demoup\Main.class
+com\demoup\sort\DescendingMergeSort.class
+com\demoup\benchmark\MicroBenchMark.class
+com\demoup\sort\SortAlgorithm.class
+com\demoup\sort\LegacySort.class
+com\demoup\benchmark\BenchMarkRunner.class
+com\demoup\sort\DescendingDefaultSort.class

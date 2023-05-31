@@ -1,8 +1,17 @@
 package com.demoup.sort;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class DescendingMergeSort<T extends Comparable<T>> implements SortAlgorithm<T>{
+
+    private ExecutorService executorService;
+    public DescendingMergeSort() {
+        executorService = Executors.newCachedThreadPool();
+    }
 
     public T[] sort(T[] array) {
         if (array == null) {
@@ -16,13 +25,25 @@ public class DescendingMergeSort<T extends Comparable<T>> implements SortAlgorit
         T[] left = Arrays.copyOfRange(array, 0, mid);
         T[] right = Arrays.copyOfRange(array, mid, array.length);
 
-        sort(left);
-        sort(right);
+        Future<T[]> leftResult = submitSortTask(left);
+        Future<T[]> rightResult = submitSortTask(right);
+
+        try {
+            left = leftResult.get();
+            right = rightResult.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
 
         merge(array, left, right);
 
         return array;
     }
+
+    private Future<T[]> submitSortTask(T[] array) {
+        return executorService.submit(() -> sort(array));
+    }
+
 
     private void merge(T[] array, T[] left, T[] right) {
         var i = 0;
